@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Box, Input, Text, Textarea } from '@stoplight/mosaic';
+import { Button, Box, Input } from '@stoplight/mosaic';
 import './OneTimePassword.styles.css';
 
 export const OneTimePasswordComponent = () => {

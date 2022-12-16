@@ -13,6 +13,7 @@ export const sendOTPEmail = async () => {
         },
       }
     );
+    alert(response);
   } catch (e) {
     console.log(e);
   }

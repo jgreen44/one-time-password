@@ -7,7 +7,6 @@ export const OneTimePasswordComponent = () => {
   const handleEvent = async () => {
     const response = await sendOTPEmail();
     console.log(response);
-    alert(response);
   };
   return (
     <Box className={'otp'}>

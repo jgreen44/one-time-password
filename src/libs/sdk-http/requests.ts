@@ -7,13 +7,14 @@ export const sendOTPEmail = async () => {
       'https://4edl8sk54b.execute-api.us-east-2.amazonaws.com/dev',
       {
         otp,
+      },
+      {
         headers: {
           'Content-Type': 'application/json',
         },
       }
     );
-    alert(response.data);
-    alert(response.data);
+    console.log(response.data);
   } catch (e) {
     console.log(e);
   }

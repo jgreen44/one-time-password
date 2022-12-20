@@ -14,6 +14,7 @@ const parseStatusCodes = (code: number | undefined) => {
 export const useSendOneTimePassword = () => {
   return React.useCallback(async (email: string): Promise<void> => {
     const otp = Math.floor(Math.random() * 1000000);
+    console.log(email, otp);
     const emailResponse = await sendOTPEmail({ email, otp });
     parseStatusCodes(emailResponse?.statusCode);
   }, []);

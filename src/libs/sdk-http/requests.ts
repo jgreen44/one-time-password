@@ -9,18 +9,27 @@ export interface IResponseType {
 }
 
 export const sendOTPEmail = async (payload: { email: string; otp: number }) => {
+  console.log({ ...payload });
   try {
     const response: IResponseType = await axios.post(
-      'https://obhk58x125.execute-api.us-east-1.amazonaws.com/Prod/create-otp',
+      'https://6rd51zjfek.execute-api.us-east-1.amazonaws.com/Prod/create-otp',
       {
-        ...payload,
+        statusCode: 200,
+        body: JSON.stringify({ ...payload }),
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+          'Access-Control-Allow-Headers':
+            'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        },
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Origin': '*', // Allow from anywhere
-          'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', // Allow all requests
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+          'Access-Control-Allow-Headers':
+            'Origin, X-Requested-With, Content-Type, Accept, Authorization',
         },
       }
     );

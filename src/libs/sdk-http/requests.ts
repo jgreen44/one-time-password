@@ -1,22 +1,42 @@
 import axios from 'axios';
 
-export const sendOTPEmail = async () => {
-  const otp = Math.floor(Math.random() * 1000000);
+export interface IResponseType {
+  data: {
+    statusCode: number;
+    body: string;
+    otp?: number;
+  };
+}
+
+export const sendOTPEmail = async (payload: { email: string; otp: number }) => {
   try {
-    const response = await axios.post(
-      'https://4edl8sk54b.execute-api.us-east-2.amazonaws.com/dev',
+    const response: IResponseType = await axios.post(
+      'https://obhk58x125.execute-api.us-east-1.amazonaws.com/Prod/create-otp',
       {
-        otp,
+        ...payload,
       },
       {
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Origin': '*', // Allow from anywhere
+          'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', // Allow all requests
         },
       }
     );
-    console.log(response.data);
-    return response.data;
-  } catch (e) {
-    console.log(e);
+
+    const {
+      data: { statusCode, body, otp },
+    } = response;
+
+    console.log('axios', {
+      statusCode,
+      body,
+      otp,
+    });
+
+    return { statusCode, body, otp };
+  } catch (e: any) {
+    console.log(`Server error. Message: ${e.message}`);
   }
 };

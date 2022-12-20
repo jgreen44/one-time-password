@@ -45,6 +45,7 @@ export const sendOTPEmail = async (payload: { email: string; otp: number }) => {
     });
 
     return { statusCode, body, otp };
+    // eslint-disable-next-line
   } catch (e: any) {
     console.log(`Server error. Message: ${e.message}`);
   }

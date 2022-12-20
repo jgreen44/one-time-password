@@ -24,6 +24,14 @@ export const OneTimePasswordComponent = () => {
     formState: { isSubmitting, errors },
   } = formMethods;
 
+  console.log({
+    email,
+    setEmail,
+    setResponseData,
+    otp,
+    setOtp,
+  });
+
   const onSubmit = async (formData: FormData) => {
     await sendOneTimePassword(formData.email);
   };

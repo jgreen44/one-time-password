@@ -13,6 +13,7 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
+import Spinner from 'react-bootstrap/Spinner';
 
 import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
 
@@ -32,12 +33,13 @@ type FormProps = {
 };
 export const SignInOTP = () => {
   let decodedEmailString: string;
-
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState<FormProps>();
   const authenticateOneTimePassword = useAuthenticateOneTimePassword();
   const navigate = useNavigate();
   const onSubmit = async (data: FormProps) => {
     let response: AxiosResponse<any, any> | undefined;
+    setLoading(true);
     setValues(data);
     const emailString: string | null = localStorage.getItem('id');
     if (emailString !== null) {
@@ -51,6 +53,7 @@ export const SignInOTP = () => {
         response?.status === 200 &&
         response?.data.message.otp['S'] === data.otp
       ) {
+        setLoading(false);
         navigate('/final-app');
       } else {
         console.log('error', {
@@ -58,6 +61,7 @@ export const SignInOTP = () => {
           dataOTP: data.otp,
         });
       }
+      setLoading(false);
     }
   };
 
@@ -121,18 +125,19 @@ export const SignInOTP = () => {
                   autoFocus
                   value={values}
                 />
-                <FormControlLabel
-                  control={<Checkbox value='remember' color='primary' />}
-                  label='Remember me'
-                />
-                <Button
-                  type='submit'
-                  fullWidth
-                  variant='contained'
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Submit
-                </Button>
+
+                {loading ? (
+                  <Spinner animation='border' />
+                ) : (
+                  <Button
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Submit
+                  </Button>
+                )}
                 <Grid container>
                   <Grid item xs>
                     <Link href='#' variant='body2'>

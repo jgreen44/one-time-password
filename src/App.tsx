@@ -1,11 +1,12 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { FinalApp } from './components/FinalApp';
 
 import { SignInEmail } from './components/SignInEmail';
 import { SignInOTP } from './components/SignInOTP';
-import { FinalApp } from './components/FinalApp';
 
 export const App = () => {
   return (

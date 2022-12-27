@@ -1,29 +1,26 @@
-import * as React from 'react';
+import { LockOutlined } from '@mui/icons-material';
 import {
   Avatar,
+  Box,
   Button,
+  Checkbox,
+  createTheme,
   CssBaseline,
   FormControlLabel,
-  Checkbox,
+  Grid,
   Link,
   Paper,
-  Box,
-  Grid,
-  Typography,
-  createTheme,
   ThemeProvider,
+  Typography,
 } from '@mui/material';
-
-import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
-
-import { LockOutlined } from '@mui/icons-material';
-
-import { useNavigate } from 'react-router-dom';
-import { Copyright } from './Copyright';
+import * as React from 'react';
 import { useState } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
+import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
+import { useNavigate } from 'react-router-dom';
 import { useSendOneTimePassword } from '../hooks/useSendOneTimePassword';
-import { decodeString, encodeString } from '../libs/utils/encoding';
-
+import { encodeString } from '../libs/utils/encoding';
+import { Copyright } from './Copyright';
 const theme = createTheme();
 
 type FormProps = {
@@ -31,14 +28,21 @@ type FormProps = {
 };
 
 export const SignInEmail = () => {
-  let decodedEmailString: string;
   const [values, setValues] = useState<FormProps>();
+  const [loading, setLoading] = useState(false);
+
   const sendOneTimePassword = useSendOneTimePassword();
   const navigate = useNavigate();
-  const onSubmit = async (data: FormProps) => {
+  const onSubmit = async (data: any) => {
+    setLoading(true);
     setValues(data);
+
     await sendOneTimePassword(data.email);
+
     localStorage.setItem('id', encodeString(data.email));
+
+    setLoading(false);
+
     navigate('/sign-in-otp');
   };
 
@@ -102,18 +106,20 @@ export const SignInEmail = () => {
                   autoFocus
                   value={values}
                 />
-                <FormControlLabel
-                  control={<Checkbox value='remember' color='primary' />}
-                  label='Remember me'
-                />
-                <Button
-                  type='submit'
-                  fullWidth
-                  variant='contained'
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign In
-                </Button>
+                {loading ? (
+                  <Spinner animation='border' />
+                ) : (
+                  <Button
+                    disabled={loading}
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Sign In
+                  </Button>
+                )}
+
                 <Grid container>
                   <Grid item xs>
                     <Link href='#' variant='body2'>

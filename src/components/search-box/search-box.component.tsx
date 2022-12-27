@@ -8,7 +8,6 @@ interface SearchBoxProps {
 }
 
 export const SearchBox: React.FC<SearchBoxProps> = ({
-  className,
   placeholder,
   handleChange,
 }) => {

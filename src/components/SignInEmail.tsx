@@ -3,10 +3,8 @@ import {
   Avatar,
   Box,
   Button,
-  Checkbox,
   createTheme,
   CssBaseline,
-  FormControlLabel,
   Grid,
   Link,
   Paper,
@@ -33,7 +31,7 @@ export const SignInEmail = () => {
 
   const sendOneTimePassword = useSendOneTimePassword();
   const navigate = useNavigate();
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormProps) => {
     setLoading(true);
     setValues(data);
 

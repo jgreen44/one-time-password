@@ -3,8 +3,6 @@ import {
   Avatar,
   Button,
   CssBaseline,
-  FormControlLabel,
-  Checkbox,
   Link,
   Paper,
   Box,
@@ -24,7 +22,6 @@ import { Copyright } from './Copyright';
 import { useState } from 'react';
 import { useAuthenticateOneTimePassword } from '../hooks/useAuthenticateOneTimePassword';
 import { decodeString } from '../libs/utils/encoding';
-import { AxiosResponse } from 'axios';
 
 const theme = createTheme();
 
@@ -38,7 +35,7 @@ export const SignInOTP = () => {
   const authenticateOneTimePassword = useAuthenticateOneTimePassword();
   const navigate = useNavigate();
   const onSubmit = async (data: FormProps) => {
-    let response: AxiosResponse<any, any> | undefined;
+    let response;
     setLoading(true);
     setValues(data);
     const emailString: string | null = localStorage.getItem('id');

@@ -1,50 +1,51 @@
 import axios from 'axios';
 
-export interface IResponseType {
-  data: {
-    statusCode: number;
-    body: string;
-    otp?: number;
-  };
-}
+// type IResponseType = {
+//   data: {
+//     statusCode?: number;
+//     message?: string;
+//   };
+// };
 
-export const sendOTPEmail = async (payload: { email: string; otp: number }) => {
-  console.log({ ...payload });
+export const sendOTPEmail = async (payload: { email: string; otp: string }) => {
+  console.log('payload', { ...payload });
   try {
-    const response: IResponseType = await axios.post(
-      'https://6rd51zjfek.execute-api.us-east-1.amazonaws.com/Prod/create-otp',
+    const response = await axios.post(
+      // 'https://6rd51zjfek.execute-api.us-east-1.amazonaws.com/Prod/create-otp',
+      'http://127.0.0.1:3000/create-otp',
       {
-        statusCode: 200,
-        body: JSON.stringify({ ...payload }),
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-          'Access-Control-Allow-Headers':
-            'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        },
+        ...payload,
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-          'Access-Control-Allow-Headers':
-            'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        },
-      }
+      {}
     );
 
     const {
-      data: { statusCode, body, otp },
+      data: { statusCode, message },
     } = response;
 
-    console.log('axios', {
-      statusCode,
-      body,
-      otp,
-    });
+    return { statusCode, message };
+    // eslint-disable-next-line
+  } catch (e: any) {
+    console.log(`Server error. Message: ${e.message}`);
+  }
+};
 
-    return { statusCode, body, otp };
+export const getOTPValue = async (payload: { email: string }) => {
+  try {
+    const response = await axios.post(
+      // 'https://6rd51zjfek.execute-api.us-east-1.amazonaws.com/Prod/create-otp',
+      'http://127.0.0.1:3000/get-otp',
+      {
+        ...payload,
+      },
+      {}
+    );
+
+    // const {
+    //   data: { statusCode, message },
+    // } = response;
+
+    return response;
     // eslint-disable-next-line
   } catch (e: any) {
     console.log(`Server error. Message: ${e.message}`);

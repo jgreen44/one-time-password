@@ -30,10 +30,7 @@
         "prettier"
     ],
     "rules": {
-        "quotes": [
-            "error",
-            "single"
-        ],
+        "quotes": [2, "single", { "avoidEscape": true }],
         "semi": [
             "error",
             "always"

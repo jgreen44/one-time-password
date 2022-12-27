@@ -42,7 +42,7 @@ export const OneTimePasswordComponent = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div>
-              <text id="email">Email</text>
+              <span id="email">Email</span>
               <div aria-label="user-email">
                 <input
                   {...register('email', {
